@@ -195,7 +195,7 @@ class AgenticChatPipeline:
                 )
 
             chunks: list[str] = []
-            async for chunk in self._stream_messages(messages, max_tokens=1200):
+            async for chunk in self._stream_messages(messages):
                 if not chunk:
                     continue
                 chunks.append(chunk)
@@ -514,7 +514,7 @@ class AgenticChatPipeline:
             messages=messages,
             tools=tool_schemas,
             tool_choice="auto",
-            **self._completion_kwargs(max_tokens=1500),
+            **self._completion_kwargs(),
         )
         self._accumulate_usage(response)
         if not response.choices:
